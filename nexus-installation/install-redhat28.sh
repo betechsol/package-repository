@@ -27,9 +27,35 @@ sudo chmod -R 775 /opt/sonatype-work
 #6 Open /opt/nexus/bin/nexus.rc file and  uncomment run_as_user parameter and set as nexus user.
 echo run_as_user="nexus" > /opt/nexus/bin/nexus.rc
 #7 CONFIGURE NEXUS TO RUN AS A SERVICE
-sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
+## Create file: sudo vi /etc/systemd/system/nexus.service
+## Add Contents:
+sudo cat > /etc/systemd/system/nexus.service<< EOF
+[Unit]
+Description=nexus service
+After=network.target
+  
+[Service]
+Type=forking
+LimitNOFILE=65536
+ExecStart=/opt/nexus/bin/nexus start
+ExecStop=/opt/nexus/bin/nexus stop
+
+User=nexus
+Restart=on-abort
+TimeoutSec=600
+  
+[Install]
+WantedBy=multi-user.target
+EOF
+
+### Close save and quit
+
 #9 Enable and start the nexus services
+sudo systemctl daemon-reload
 sudo systemctl enable nexus
 sudo systemctl start nexus
 sudo systemctl status nexus
 echo "end of nexus installation"
+
+## To view logs
+tail -f /opt/sonatype-work/nexus3/log/nexus.log
