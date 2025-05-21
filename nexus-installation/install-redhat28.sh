@@ -16,7 +16,6 @@ cd /opt
 sudo yum install wget git nano unzip -y
 sudo yum install java-11-openjdk-devel java-1.8.0-openjdk-devel -y
 # 2. Download nexus software and extract it (unzip)
-# sudo wget https://download.sonatype.com/nexus/3/nexus-3.80.0-06-linux-x86_64.tar.gz
 sudo wget -O nexus.tar.gz https://download.sonatype.com/nexus/3/nexus-3.80.0-06-linux-x86_64.tar.gz
 sudo tar -xvf nexus.tar.gz
 sudo mv /opt/nexus-3* /opt/nexus
@@ -26,10 +25,7 @@ sudo chown -R nexus:nexus /opt/sonatype-work
 sudo chmod -R 775 /opt/nexus
 sudo chmod -R 775 /opt/sonatype-work
 #6 Open /opt/nexus/bin/nexus.rc file and  uncomment run_as_user parameter and set as nexus user.
-#vi /opt/nexus/bin/nexus.rc
 echo run_as_user="nexus" > /opt/nexus/bin/nexus.rc
-#vi /opt/nexus/bin/nexus.rc
-#run_as_user="nexus"
 #7 CONFIGURE NEXUS TO RUN AS A SERVICE
 sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
 #9 Enable and start the nexus services
