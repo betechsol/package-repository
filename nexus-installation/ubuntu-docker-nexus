@@ -1,0 +1,10 @@
+#! /bin/bash
+## Install docker
+sudo apt install docker.io
+## grant docker permission to ubuntu user
+sudo usermod -a -G docker ubuntu
+## Logout and back in to cycle changes or run
+exec bash
+docker run -d -p 8081:8081 --name nexus sonatype/nexus3
+## To access the admin password we need to access out Docker Nexus container
+docker exec nexus cat /nexus-data/admin.password; echo
