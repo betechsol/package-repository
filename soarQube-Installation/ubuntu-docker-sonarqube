@@ -1,6 +1,8 @@
 #! /bin/bash
+## Update ubuntu
+sudo apt update
 ## Install docker
-sudo apt install docker.io
+sudo apt install docker.io -y
 ## grant docker permission to ubuntu user
 sudo usermod -a -G docker ubuntu
 sudo docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
