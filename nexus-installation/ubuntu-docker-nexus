@@ -1,6 +1,8 @@
 #! /bin/bash
+## Update ubuntu
+sudo apt update
 ## Install docker
-sudo apt install docker.io
+sudo apt install docker.io -y
 ## grant docker permission to ubuntu user
 sudo usermod -a -G docker ubuntu
 ## Logout and back in to cycle changes or run
